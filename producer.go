@@ -4,7 +4,7 @@ import (
 	"reflect"
 )
 
-func (this *FactoryObject) Produce(object interface{}) error {
+func (this *FactoryInstance) Produce(object interface{}) error {
 	modifiedFactory := this
 	originalFactory := factories[this.name]
 

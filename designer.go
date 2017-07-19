@@ -6,8 +6,8 @@ import (
 	"reflect"
 )
 
-func (this *FactoryObject) Set(
-	name string, params ...interface{}) *FactoryObject {
+func (this *FactoryInstance) Set(
+	name string, params ...interface{}) *FactoryInstance {
 
 	var value interface{}
 
@@ -26,7 +26,7 @@ func (this *FactoryObject) Set(
 	return this
 }
 
-func (this *FactoryObject) Design(object interface{}) error {
+func (this *FactoryInstance) Design(object interface{}) error {
 	err := checkValues(object, this)
 	if err != nil {
 		return err
@@ -35,7 +35,7 @@ func (this *FactoryObject) Design(object interface{}) error {
 	return nil
 }
 
-func checkValues(object interface{}, factory *FactoryObject) error {
+func checkValues(object interface{}, factory *FactoryInstance) error {
 
 	objectValue := reflect.ValueOf(object)
 	objectType := reflect.Indirect(objectValue).Type()
