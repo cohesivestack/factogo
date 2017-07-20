@@ -7,6 +7,10 @@ import (
 func (this *FactoryInstance) Produce(object interface{}) error {
 	modifiedFactory := this
 	originalFactory := factories[this.name]
+	if !modifiedFactory.notPersist && modifiedFactory.persistFunction == nil {
+		modifiedFactory.persistFunction = originalFactory.persistFunction
+		modifiedFactory.notPersist = originalFactory.notPersist
+	}
 
 	for _, modifiedValue := range modifiedFactory.values {
 		originalFactory.values[modifiedValue.name].value = modifiedValue.value
@@ -27,6 +31,13 @@ func (this *FactoryInstance) Produce(object interface{}) error {
 		} else {
 			field.Set(reflect.ValueOf(value.value))
 		}
+	}
+
+	if !this.notPersist && (this.persistFunction != nil || persistFunction != nil) {
+		if this.persistFunction == nil {
+			this.persistFunction = persistFunction
+		}
+		this.persistFunction(object)
 	}
 
 	return nil

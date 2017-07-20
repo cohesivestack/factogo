@@ -18,7 +18,6 @@ func TestProduceDefault(t *testing.T) {
 		Set("String").
 		Design(&ModelC{})
 
-	// Default function
 	Factory("ModelA").
 		Set("String").
 		Set("Int").
