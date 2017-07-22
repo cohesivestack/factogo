@@ -12,6 +12,10 @@ func (this *FactoryInstance) Produce(object interface{}) error {
 		modifiedFactory.notPersist = originalFactory.notPersist
 	}
 
+	if !modifiedFactory.notPersist && modifiedFactory.afterPersistFunction == nil {
+		modifiedFactory.afterPersistFunction = originalFactory.afterPersistFunction
+	}
+
 	for _, modifiedValue := range modifiedFactory.values {
 		originalFactory.values[modifiedValue.name].value = modifiedValue.value
 	}
@@ -38,6 +42,13 @@ func (this *FactoryInstance) Produce(object interface{}) error {
 			this.persistFunction = persistFunction
 		}
 		this.persistFunction(object)
+
+		if this.afterPersistFunction == nil {
+			this.afterPersistFunction = afterPersistFunction
+		}
+		if this.afterPersistFunction != nil {
+			this.afterPersistFunction(object)
+		}
 	}
 
 	return nil
