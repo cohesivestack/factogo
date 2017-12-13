@@ -16,11 +16,17 @@ func (this *FactoryInstance) Produce(object interface{}) error {
 		modifiedFactory.afterPersistFunction = originalFactory.afterPersistFunction
 	}
 
-	for _, modifiedValue := range modifiedFactory.values {
-		originalFactory.values[modifiedValue.name].value = modifiedValue.value
+	for _, originalValue := range originalFactory.values {
+		if _, ok := modifiedFactory.values[originalValue.name]; !ok {
+			modifiedFactory.values[originalValue.name] = &factoryValue{
+				name:   originalValue.name,
+				value:  originalValue.value,
+				params: originalValue.params,
+			}
+		}
 	}
 
-	for _, value := range originalFactory.values {
+	for _, value := range modifiedFactory.values {
 		valueType := reflect.TypeOf(value.value)
 		field := reflect.Indirect(reflect.ValueOf(object)).FieldByName(value.name)
 
