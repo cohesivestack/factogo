@@ -15,7 +15,7 @@ Example:
 	Factory("staff").Design(&Staff{}) // Design the Factory Instance
 	Factory("staff").Produce() // Now is possible to produce from the designed Factory
 */
-func (this *FactoryInstance) Design(object interface{}) error {
+func (this *factoryInstance) Design(object interface{}) error {
 	err := checkValues(object, this)
 	if err != nil {
 		return err
@@ -24,7 +24,7 @@ func (this *FactoryInstance) Design(object interface{}) error {
 	return nil
 }
 
-func checkValues(object interface{}, factory *FactoryInstance) error {
+func checkValues(object interface{}, factory *factoryInstance) error {
 
 	objectValue := reflect.ValueOf(object)
 	objectType := reflect.Indirect(objectValue).Type()

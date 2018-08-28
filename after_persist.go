@@ -10,7 +10,7 @@ using the Persist function.
 If any Persist function is registered or NotPersist() was called over the
 designed Factory, then the AfterPersist callback won't be called.
 */
-func (this *FactoryInstance) AfterPersist(function func(product interface{})) *FactoryInstance {
+func (this *factoryInstance) AfterPersist(function func(product interface{})) *factoryInstance {
 	this.afterPersistFunction = function
 	return this
 }

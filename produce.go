@@ -15,7 +15,7 @@ Example:
 	target := &Staff{}
 	Factory("staff").Produce(target)
 */
-func (this *FactoryInstance) Produce(object interface{}) error {
+func (this *factoryInstance) Produce(object interface{}) error {
 	modifiedFactory := this
 	originalFactory := factories[this.name]
 	if !modifiedFactory.notPersist && modifiedFactory.persistFunction == nil {

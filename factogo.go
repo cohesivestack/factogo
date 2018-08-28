@@ -19,7 +19,7 @@ type factoryValue struct {
 	params []interface{}
 }
 
-type FactoryInstance struct {
+type factoryInstance struct {
 	notPersist           bool
 	persistFunction      func(product interface{})
 	afterPersistFunction func(product interface{})
@@ -28,7 +28,7 @@ type FactoryInstance struct {
 	values               map[string]*factoryValue
 }
 
-var factories map[string]*FactoryInstance
+var factories map[string]*factoryInstance
 var persistFunction func(product interface{})
 var afterPersistFunction func(product interface{})
 
@@ -41,7 +41,7 @@ Clear removes all designed Factory instances. It also unregisters the default
 Persist function and the default AfterPersist callback.
 */
 func Clear() {
-	factories = make(map[string]*FactoryInstance)
+	factories = make(map[string]*factoryInstance)
 	persistFunction = nil
 	afterPersistFunction = nil
 }
@@ -50,8 +50,8 @@ func Clear() {
 Factory get or creates a Factory Instance depending on whether it was already
 designed or not.
 */
-func Factory(name string) *FactoryInstance {
-	factory := &FactoryInstance{name: name}
+func Factory(name string) *factoryInstance {
+	factory := &factoryInstance{name: name}
 	factory.values = make(map[string]*factoryValue)
 	return factory
 }

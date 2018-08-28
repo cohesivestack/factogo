@@ -16,8 +16,8 @@ The second parameter is optional and can be used to pass a value different to
 the generated values produced by factogo. If the second parameter is a function
 then this function is called to get the value to assign to the field.
 */
-func (this *FactoryInstance) Set(
-	name string, params ...interface{}) *FactoryInstance {
+func (this *factoryInstance) Set(
+	name string, params ...interface{}) *factoryInstance {
 
 	var value interface{}
 
