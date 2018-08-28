@@ -11,18 +11,18 @@ a designed Factory.
 In case Factogo has registered a default Persist function, registering a Persist
 function, over the Factory instance, overrides the default Persist function.
 */
-func (this *factoryInstance) Persist(function func(product interface{})) *factoryInstance {
-	this.notPersist = false
-	this.persistFunction = function
-	return this
+func (fi *factoryInstance) Persist(function func(product interface{})) *factoryInstance {
+	fi.notPersist = false
+	fi.persistFunction = function
+	return fi
 }
 
 /*
 NotPersist avoids to call a Persist function, even when there is a registered
 default Persist function.
 */
-func (this *factoryInstance) NotPersist() *factoryInstance {
-	this.notPersist = true
-	this.persistFunction = nil
-	return this
+func (fi *factoryInstance) NotPersist() *factoryInstance {
+	fi.notPersist = true
+	fi.persistFunction = nil
+	return fi
 }

@@ -15,20 +15,20 @@ Example:
 	Factory("staff").Design(&Staff{}) // Design the Factory Instance
 	Factory("staff").Produce() // Now is possible to produce from the designed Factory
 */
-func (this *factoryInstance) Design(object interface{}) error {
-	err := checkValues(object, this)
+func (fi *factoryInstance) Design(object interface{}) error {
+	err := fi.checkValues(object)
 	if err != nil {
 		return err
 	}
-	factories[this.name] = this
+	factories[fi.name] = fi
 	return nil
 }
 
-func checkValues(object interface{}, factory *factoryInstance) error {
+func (fi *factoryInstance) checkValues(object interface{}) error {
 
 	objectValue := reflect.ValueOf(object)
 	objectType := reflect.Indirect(objectValue).Type()
-	for _, _factoryValue := range factory.values {
+	for _, _factoryValue := range fi.values {
 
 		fieldName := _factoryValue.name
 

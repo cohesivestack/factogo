@@ -15,9 +15,9 @@ Example:
 	target := &Staff{}
 	Factory("staff").Produce(target)
 */
-func (this *factoryInstance) Produce(object interface{}) error {
-	modifiedFactory := this
-	originalFactory := factories[this.name]
+func (fi *factoryInstance) Produce(object interface{}) error {
+	modifiedFactory := fi
+	originalFactory := factories[fi.name]
 	if !modifiedFactory.notPersist && modifiedFactory.persistFunction == nil {
 		modifiedFactory.persistFunction = originalFactory.persistFunction
 		modifiedFactory.notPersist = originalFactory.notPersist
@@ -54,17 +54,17 @@ func (this *factoryInstance) Produce(object interface{}) error {
 		}
 	}
 
-	if !this.notPersist && (this.persistFunction != nil || persistFunction != nil) {
-		if this.persistFunction == nil {
-			this.persistFunction = persistFunction
+	if !fi.notPersist && (fi.persistFunction != nil || persistFunction != nil) {
+		if fi.persistFunction == nil {
+			fi.persistFunction = persistFunction
 		}
-		this.persistFunction(object)
+		fi.persistFunction(object)
 
-		if this.afterPersistFunction == nil {
-			this.afterPersistFunction = afterPersistFunction
+		if fi.afterPersistFunction == nil {
+			fi.afterPersistFunction = afterPersistFunction
 		}
-		if this.afterPersistFunction != nil {
-			this.afterPersistFunction(object)
+		if fi.afterPersistFunction != nil {
+			fi.afterPersistFunction(object)
 		}
 	}
 

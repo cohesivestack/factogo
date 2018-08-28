@@ -14,9 +14,9 @@ field.
 
 The second parameter is optional and can be used to pass a value different to
 the generated values produced by factogo. If the second parameter is a function
-then this function is called to get the value to assign to the field.
+then fi function is called to get the value to assign to the field.
 */
-func (this *factoryInstance) Set(
+func (fi *factoryInstance) Set(
 	name string, params ...interface{}) *factoryInstance {
 
 	var value interface{}
@@ -32,6 +32,6 @@ func (this *factoryInstance) Set(
 		value = nil
 	}
 
-	this.values[name] = &factoryValue{name: name, value: value, params: params}
-	return this
+	fi.values[name] = &factoryValue{name: name, value: value, params: params}
+	return fi
 }
