@@ -71,33 +71,33 @@ func checkValues(object interface{}, factory *FactoryInstance) error {
 func getDefaultFunctionFor(name string, _type reflect.Type) (interface{}, error) {
 	switch _type.Kind() {
 	case reflect.String:
-		return DefaultStringFunction, nil
+		return ProduceString, nil
 	case reflect.Int:
-		return DefaultIntFunction, nil
+		return ProduceInt, nil
 	case reflect.Int8:
-		return DefaultInt8Function, nil
+		return ProduceInt8, nil
 	case reflect.Int16:
-		return DefaultInt16Function, nil
+		return ProduceInt16, nil
 	case reflect.Int32:
-		return DefaultInt32Function, nil
+		return ProduceInt32, nil
 	case reflect.Int64:
-		return DefaultInt64Function, nil
+		return ProduceInt64, nil
 	case reflect.Uint:
-		return DefaultUintFunction, nil
+		return ProduceUint, nil
 	case reflect.Uint8:
-		return DefaultUint8Function, nil
+		return ProduceUint8, nil
 	case reflect.Uint16:
-		return DefaultUint16Function, nil
+		return ProduceUint16, nil
 	case reflect.Uint32:
-		return DefaultUint32Function, nil
+		return ProduceUint32, nil
 	case reflect.Uint64:
-		return DefaultUint64Function, nil
+		return ProduceUint64, nil
 	case reflect.Float32:
-		return DefaultFloat32Function, nil
+		return ProduceFloat32, nil
 	case reflect.Float64:
-		return DefaultFloat64Function, nil
+		return ProduceFloat64, nil
 	case reflect.Bool:
-		return DefaultBoolFunction, nil
+		return ProduceBool, nil
 	case reflect.Struct:
 		return func(object interface{}) {
 			valuePointer := reflect.New(_type).Interface()
@@ -108,33 +108,33 @@ func getDefaultFunctionFor(name string, _type reflect.Type) (interface{}, error)
 	case reflect.Ptr:
 		switch _type.String() {
 		case "*string":
-			return DefaultStringPointerFunction, nil
+			return ProduceStringPointer, nil
 		case "*int":
-			return DefaultIntPointerFunction, nil
+			return ProduceIntPointer, nil
 		case "*int8":
-			return DefaultInt8PointerFunction, nil
+			return ProduceInt8Pointer, nil
 		case "*int16":
-			return DefaultInt16PointerFunction, nil
+			return ProduceInt16Pointer, nil
 		case "*int32":
-			return DefaultInt32PointerFunction, nil
+			return ProduceInt32Pointer, nil
 		case "*int64":
-			return DefaultInt64PointerFunction, nil
+			return ProduceInt64Pointer, nil
 		case "*uint":
-			return DefaultUintPointerFunction, nil
+			return ProduceUintPointer, nil
 		case "*uint8":
-			return DefaultUint8PointerFunction, nil
+			return ProduceUint8Pointer, nil
 		case "*uint16":
-			return DefaultUint16PointerFunction, nil
+			return ProduceUint16Pointer, nil
 		case "*uint32":
-			return DefaultUint32PointerFunction, nil
+			return ProduceUint32Pointer, nil
 		case "*uint64":
-			return DefaultUint64PointerFunction, nil
+			return ProduceUint64Pointer, nil
 		case "*float32":
-			return DefaultFloat32PointerFunction, nil
+			return ProduceFloat32Pointer, nil
 		case "*float64":
-			return DefaultFloat64PointerFunction, nil
+			return ProduceFloat64Pointer, nil
 		case "*bool":
-			return DefaultBoolPointerFunction, nil
+			return ProduceBoolPointer, nil
 		default:
 			return func(object interface{}) {
 				valuePointer := reflect.New(_type.Elem()).Interface()

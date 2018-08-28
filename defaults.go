@@ -11,7 +11,7 @@ func seededRand() *rand.Rand {
 	return rand.New(rand.NewSource(time.Now().UnixNano()))
 }
 
-func DefaultStringFunction() string {
+func ProduceString() string {
 	length := 20
 
 	chars := make([]byte, length)
@@ -21,55 +21,55 @@ func DefaultStringFunction() string {
 	return string(chars)
 }
 
-func DefaultIntFunction() int {
+func ProduceInt() int {
 	return seededRand().Int()
 }
 
-func DefaultInt8Function() int8 {
+func ProduceInt8() int8 {
 	return int8(seededRand().Intn(127))
 }
 
-func DefaultInt16Function() int16 {
+func ProduceInt16() int16 {
 	return int16(seededRand().Intn(32767))
 }
 
-func DefaultInt32Function() int32 {
+func ProduceInt32() int32 {
 	return seededRand().Int31()
 }
 
-func DefaultInt64Function() int64 {
+func ProduceInt64() int64 {
 	return seededRand().Int63()
 }
 
-func DefaultUintFunction() uint {
+func ProduceUint() uint {
 	return uint(seededRand().Int())
 }
 
-func DefaultUint8Function() uint8 {
+func ProduceUint8() uint8 {
 	return uint8(seededRand().Intn(255))
 }
 
-func DefaultUint16Function() uint16 {
+func ProduceUint16() uint16 {
 	return uint16(seededRand().Intn(65535))
 }
 
-func DefaultUint32Function() uint32 {
+func ProduceUint32() uint32 {
 	return seededRand().Uint32()
 }
 
-func DefaultUint64Function() uint64 {
+func ProduceUint64() uint64 {
 	return seededRand().Uint64()
 }
 
-func DefaultFloat32Function() float32 {
+func ProduceFloat32() float32 {
 	return seededRand().Float32()
 }
 
-func DefaultFloat64Function() float64 {
+func ProduceFloat64() float64 {
 	return seededRand().Float64()
 }
 
-func DefaultBoolFunction() bool {
+func ProduceBool() bool {
 	var val bool
 	if seededRand().Intn(1) == 1 {
 		val = true
@@ -77,72 +77,72 @@ func DefaultBoolFunction() bool {
 	return val
 }
 
-func DefaultStringPointerFunction() *string {
-	val := DefaultStringFunction()
+func ProduceStringPointer() *string {
+	val := ProduceString()
 	return &val
 }
 
-func DefaultIntPointerFunction() *int {
-	val := DefaultIntFunction()
+func ProduceIntPointer() *int {
+	val := ProduceInt()
 	return &val
 }
 
-func DefaultInt8PointerFunction() *int8 {
-	val := DefaultInt8Function()
+func ProduceInt8Pointer() *int8 {
+	val := ProduceInt8()
 	return &val
 }
 
-func DefaultInt16PointerFunction() *int16 {
-	val := DefaultInt16Function()
+func ProduceInt16Pointer() *int16 {
+	val := ProduceInt16()
 	return &val
 }
 
-func DefaultInt32PointerFunction() *int32 {
-	val := DefaultInt32Function()
+func ProduceInt32Pointer() *int32 {
+	val := ProduceInt32()
 	return &val
 }
 
-func DefaultInt64PointerFunction() *int64 {
-	val := DefaultInt64Function()
+func ProduceInt64Pointer() *int64 {
+	val := ProduceInt64()
 	return &val
 }
 
-func DefaultUintPointerFunction() *uint {
-	val := DefaultUintFunction()
+func ProduceUintPointer() *uint {
+	val := ProduceUint()
 	return &val
 }
 
-func DefaultUint8PointerFunction() *uint8 {
-	val := DefaultUint8Function()
+func ProduceUint8Pointer() *uint8 {
+	val := ProduceUint8()
 	return &val
 }
 
-func DefaultUint16PointerFunction() *uint16 {
-	val := DefaultUint16Function()
+func ProduceUint16Pointer() *uint16 {
+	val := ProduceUint16()
 	return &val
 }
 
-func DefaultUint32PointerFunction() *uint32 {
-	val := DefaultUint32Function()
+func ProduceUint32Pointer() *uint32 {
+	val := ProduceUint32()
 	return &val
 }
 
-func DefaultUint64PointerFunction() *uint64 {
-	val := DefaultUint64Function()
+func ProduceUint64Pointer() *uint64 {
+	val := ProduceUint64()
 	return &val
 }
 
-func DefaultFloat32PointerFunction() *float32 {
-	val := DefaultFloat32Function()
+func ProduceFloat32Pointer() *float32 {
+	val := ProduceFloat32()
 	return &val
 }
 
-func DefaultFloat64PointerFunction() *float64 {
-	val := DefaultFloat64Function()
+func ProduceFloat64Pointer() *float64 {
+	val := ProduceFloat64()
 	return &val
 }
 
-func DefaultBoolPointerFunction() *bool {
-	val := DefaultBoolFunction()
+func ProduceBoolPointer() *bool {
+	val := ProduceBool()
 	return &val
 }
