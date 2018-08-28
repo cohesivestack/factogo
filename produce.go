@@ -4,6 +4,17 @@ import (
 	"reflect"
 )
 
+/*
+Produce invokes a designed Factory to create a new product Struct.
+
+The values for the product Struct are copied in the target parameter passed
+to the Produce function.
+
+Example:
+	Factory("staff").Design(Staff{})
+	target := &Staff{}
+	Factory("staff").Produce(target)
+*/
 func (this *FactoryInstance) Produce(object interface{}) error {
 	modifiedFactory := this
 	originalFactory := factories[this.name]

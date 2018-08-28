@@ -6,6 +6,15 @@ import (
 	"reflect"
 )
 
+/*
+Design ends the process to design a Factory instance. When a Factory instance is
+designed then it is registered and can be produced calling the method Produce().
+
+Example:
+
+	Factory("staff").Design(&Staff{}) // Design the Factory Instance
+	Factory("staff").Produce() // Now is possible to produce from the designed Factory
+*/
 func (this *FactoryInstance) Design(object interface{}) error {
 	err := checkValues(object, this)
 	if err != nil {
