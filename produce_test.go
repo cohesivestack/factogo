@@ -26,3 +26,11 @@ func TestProduceTwoFactories(t *testing.T) {
 	assert.NoError(t, Factory("modelA").Produce(modelA), "Should be produced")
 	assert.NoError(t, Factory("modelB").Produce(modelB), "Should be produced")
 }
+
+func TestProduceANotDesignedFactory(t *testing.T) {
+	Clear()
+	modelA = &ModelA{}
+
+	assert.Errorf(t, Factory("modelA").Produce(modelA),
+		"'modelA' designed Factory doesn't exist", "Should not be produced")
+}

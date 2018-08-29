@@ -1,6 +1,8 @@
 package factogo
 
 import (
+	"errors"
+	"fmt"
 	"reflect"
 )
 
@@ -16,8 +18,14 @@ Example:
 	Factory("staff").Produce(target)
 */
 func (fi *factoryInstance) Produce(object interface{}) error {
+	if _, ok := factories[fi.name]; !ok {
+		return errors.New(
+			fmt.Sprintf("'%s' designed Factory doesn't exist", fi.name))
+	}
+
 	modifiedFactory := fi
 	originalFactory := factories[fi.name]
+
 	if !modifiedFactory.notPersist && modifiedFactory.persistFunction == nil {
 		modifiedFactory.persistFunction = originalFactory.persistFunction
 		modifiedFactory.notPersist = originalFactory.notPersist
