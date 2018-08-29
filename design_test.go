@@ -137,3 +137,12 @@ func TestDesignUsingSetWithWrongFieldTypeWithFunction(t *testing.T) {
 		"Shoud return error")
 	assert.Nil(t, factories["admin"], "Factory design should not be added")
 }
+
+func TestDesignUsingAnAlreadyDesignedFactory(t *testing.T) {
+	Clear()
+
+	Factory("modelA").Design(&ModelA{})
+
+	assert.Errorf(t, Factory("modelA").Design(&ModelA{}),
+		"A designed Factory named 'modelA' already exists")
+}

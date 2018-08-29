@@ -45,6 +45,7 @@ func TestAfterPersistGlobally(t *testing.T) {
 }
 
 func TestAfterPersistOnDesign(t *testing.T) {
+	Clear()
 	messageToTest := "Has entered in after persist"
 	persistence := &afterPersistFramework{}
 
@@ -66,6 +67,7 @@ func TestAfterPersistOnDesign(t *testing.T) {
 }
 
 func TestAfterPersistOnProduce(t *testing.T) {
+	Clear()
 	messageToTest := "Has entered in after persist"
 	persistence := &afterPersistFramework{}
 
@@ -88,6 +90,7 @@ func TestAfterPersistOnProduce(t *testing.T) {
 }
 
 func TestAfterPersistOverridingGlobal(t *testing.T) {
+	Clear()
 	messageToTest := "Has entered in after persist"
 	persistence := &afterPersistFramework{}
 
@@ -116,6 +119,7 @@ func TestAfterPersistOverridingGlobal(t *testing.T) {
 }
 
 func TestAfterPersistOverridingDesign(t *testing.T) {
+	Clear()
 	messageToTest := "Has entered in after persist"
 	persistence := &afterPersistFramework{}
 

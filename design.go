@@ -7,8 +7,9 @@ import (
 )
 
 /*
-Design ends the process to design a Factory instance. When a Factory instance is
-designed then it is registered and can be produced calling the method Produce().
+Design ends the process to design a new Factory instance. When a Factory
+instance is designed then it is registered and can be produced calling the
+method Produce().
 
 Example:
 
@@ -16,6 +17,11 @@ Example:
 	Factory("staff").Produce() // Now is possible to produce from the designed Factory
 */
 func (fi *factoryInstance) Design(object interface{}) error {
+	if _, ok := factories[fi.name]; ok {
+		return errors.New(
+			fmt.Sprintf("A designed Factory named '%s' already exists", fi.name))
+	}
+
 	err := fi.checkValues(object)
 	if err != nil {
 		return err
