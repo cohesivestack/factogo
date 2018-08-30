@@ -17,7 +17,7 @@ Example:
 	target := &Staff{}
 	Factory("staff").Produce(target)
 */
-func (fi *factoryInstance) Produce(object interface{}) error {
+func (fi *factoryInstance) Produce(product interface{}) error {
 	if _, ok := factories[fi.name]; !ok {
 		return errors.New(
 			fmt.Sprintf("'%s' designed Factory doesn't exist", fi.name))
@@ -47,7 +47,7 @@ func (fi *factoryInstance) Produce(object interface{}) error {
 
 	for _, value := range modifiedFactory.values {
 		valueType := reflect.TypeOf(value.value)
-		field := reflect.Indirect(reflect.ValueOf(object)).FieldByName(value.name)
+		field := reflect.Indirect(reflect.ValueOf(product)).FieldByName(value.name)
 
 		if valueType.Kind() == reflect.Func {
 
@@ -55,7 +55,7 @@ func (fi *factoryInstance) Produce(object interface{}) error {
 				_value := reflect.ValueOf(value.value).Call([]reflect.Value{})[0].Interface()
 				field.Set(reflect.ValueOf(_value))
 			} else {
-				reflect.ValueOf(value.value).Call([]reflect.Value{reflect.ValueOf(object)})
+				reflect.ValueOf(value.value).Call([]reflect.Value{reflect.ValueOf(product)})
 			}
 		} else {
 			field.Set(reflect.ValueOf(value.value))
@@ -66,13 +66,13 @@ func (fi *factoryInstance) Produce(object interface{}) error {
 		if fi.persistFunction == nil {
 			fi.persistFunction = persistFunction
 		}
-		fi.persistFunction(object)
+		fi.persistFunction(product)
 
 		if fi.afterPersistFunction == nil {
 			fi.afterPersistFunction = afterPersistFunction
 		}
 		if fi.afterPersistFunction != nil {
-			fi.afterPersistFunction(object)
+			fi.afterPersistFunction(product)
 		}
 	}
 
