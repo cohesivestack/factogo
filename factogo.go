@@ -57,6 +57,16 @@ func Factory(name string) *factoryInstance {
 }
 
 /*
+Factory get or creates a Factory Instance depending on whether it was already
+designed or not.
+*/
+func Produce(product interface{}) {
+	fi := &factoryInstance{object: product}
+	fi.values = make(map[string]*factoryValue)
+	_ = fi.Produce(product)
+}
+
+/*
 Persist registers the default Persist function for all designed Factories.
 
 Registering a default Persist function is optional.
