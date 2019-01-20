@@ -34,6 +34,12 @@ func TestProduceDefault(t *testing.T) {
 		Set("Float64").
 		Set("Bool").
 		Set("ModelB").
+		Set("IntArray").
+		Set("ModelBArray").
+		Set("StringMap").
+		Set("IntPointerArray").
+		Set("ModelBPointerArray").
+		Set("StringPointerMap").
 		Set("StringPointer").
 		Set("IntPointer").
 		Set("Int8Pointer").
@@ -49,6 +55,12 @@ func TestProduceDefault(t *testing.T) {
 		Set("Float64Pointer").
 		Set("BoolPointer").
 		Set("ModelC").
+		Set("IntArrayPointer").
+		Set("ModelCArrayPointer").
+		Set("StringMapPointer").
+		Set("IntPointerArrayPointer").
+		Set("ModelCPointerArrayPointer").
+		Set("StringPointerMapPointer").
 		Design(&ModelA{})
 
 	assert.NoError(t, Factory("ModelA").Produce(modelA), "Should be produced")
@@ -66,6 +78,14 @@ func TestProduceDefault(t *testing.T) {
 	assert.NotEmpty(t, modelA.Float32, "Should be not empty")
 	assert.NotEmpty(t, modelA.Float64, "Should be not empty")
 	assert.NotNil(t, modelA.ModelB, "Should be not empty")
+
+	assert.Len(t, modelA.IntArray, 0, "Should be empty")
+	assert.Len(t, modelA.ModelBArray, 0, "Should be empty")
+	assert.Len(t, modelA.StringMap, 0, "Should be empty")
+	assert.Len(t, modelA.IntPointerArray, 0, "Should be empty")
+	assert.Len(t, modelA.ModelBPointerArray, 0, "Should be empty")
+	assert.Len(t, modelA.StringPointerMap, 0, "Should be empty")
+
 	assert.NotEmpty(t, modelA.ModelB.String, "Should be not empty")
 	assert.NotEmpty(t, *modelA.StringPointer, "Should be not empty")
 	assert.NotEmpty(t, *modelA.IntPointer, "Should be not empty")
@@ -80,5 +100,13 @@ func TestProduceDefault(t *testing.T) {
 	assert.NotEmpty(t, *modelA.Uint64Pointer, "Should be not empty")
 	assert.NotEmpty(t, *modelA.Float32Pointer, "Should be not empty")
 	assert.NotEmpty(t, *modelA.Float64Pointer, "Should be not empty")
+
 	assert.NotNil(t, modelA.BoolPointer, "Should be not empty")
+
+	assert.NotNil(t, modelA.IntArrayPointer, "Should be not empty")
+	assert.NotNil(t, modelA.ModelCArrayPointer, "Should be not empty")
+	assert.NotNil(t, modelA.StringMapPointer, "Should be not empty")
+	assert.NotNil(t, modelA.IntPointerArrayPointer, "Should be not empty")
+	assert.NotNil(t, modelA.ModelCPointerArrayPointer, "Should be not empty")
+	assert.NotNil(t, modelA.StringPointerMapPointer, "Should be not empty")
 }

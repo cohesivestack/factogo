@@ -125,13 +125,6 @@ func getDefaultFunctionFor(name string, _type reflect.Type) (interface{}, error)
 		return ProduceFloat64, nil
 	case reflect.Bool:
 		return ProduceBool, nil
-	case reflect.Struct:
-		return func(object interface{}) {
-			valuePointer := reflect.New(_type).Interface()
-			Factory(name).Produce(valuePointer)
-			field := reflect.Indirect(reflect.ValueOf(object)).FieldByName(name)
-			field.Set(reflect.ValueOf(valuePointer).Elem())
-		}, nil
 	case reflect.Ptr:
 		switch _type.String() {
 		case "*string":
@@ -170,6 +163,13 @@ func getDefaultFunctionFor(name string, _type reflect.Type) (interface{}, error)
 				field.Set(reflect.ValueOf(valuePointer))
 			}, nil
 		}
+	default:
+		return func(object interface{}) {
+			valuePointer := reflect.New(_type).Interface()
+			Factory(name).Produce(valuePointer)
+			field := reflect.Indirect(reflect.ValueOf(object)).FieldByName(name)
+			field.Set(reflect.ValueOf(valuePointer).Elem())
+		}, nil
 	}
 
 	return nil, errors.New(fmt.Sprintf(

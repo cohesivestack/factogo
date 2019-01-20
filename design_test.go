@@ -7,36 +7,48 @@ import (
 )
 
 type ModelA struct {
-	String         string
-	Int            int
-	Int8           int8
-	Int16          int16
-	Int32          int32
-	Int64          int64
-	Uint           uint
-	Uint8          uint8
-	Uint16         uint16
-	Uint32         uint32
-	Uint64         uint64
-	Float32        float32
-	Float64        float64
-	Bool           bool
-	ModelB         ModelB
-	StringPointer  *string
-	IntPointer     *int
-	Int8Pointer    *int8
-	Int16Pointer   *int16
-	Int32Pointer   *int32
-	Int64Pointer   *int64
-	UintPointer    *uint
-	Uint8Pointer   *uint8
-	Uint16Pointer  *uint16
-	Uint32Pointer  *uint32
-	Uint64Pointer  *uint64
-	Float32Pointer *float32
-	Float64Pointer *float64
-	BoolPointer    *bool
-	ModelC         *ModelC
+	String                    string
+	Int                       int
+	Int8                      int8
+	Int16                     int16
+	Int32                     int32
+	Int64                     int64
+	Uint                      uint
+	Uint8                     uint8
+	Uint16                    uint16
+	Uint32                    uint32
+	Uint64                    uint64
+	Float32                   float32
+	Float64                   float64
+	Bool                      bool
+	ModelB                    ModelB
+	IntArray                  []int
+	ModelBArray               []ModelB
+	StringMap                 map[string]string
+	IntPointerArray           []*int
+	ModelBPointerArray        []*ModelB
+	StringPointerMap          map[string]*string
+	StringPointer             *string
+	IntPointer                *int
+	Int8Pointer               *int8
+	Int16Pointer              *int16
+	Int32Pointer              *int32
+	Int64Pointer              *int64
+	UintPointer               *uint
+	Uint8Pointer              *uint8
+	Uint16Pointer             *uint16
+	Uint32Pointer             *uint32
+	Uint64Pointer             *uint64
+	Float32Pointer            *float32
+	Float64Pointer            *float64
+	BoolPointer               *bool
+	ModelC                    *ModelC
+	IntArrayPointer           *[]int
+	ModelCArrayPointer        *[]ModelC
+	StringMapPointer          *map[string]string
+	IntPointerArrayPointer    *[]*int
+	ModelCPointerArrayPointer *[]*ModelC
+	StringPointerMapPointer   *map[string]*string
 }
 
 type ModelB struct {
@@ -73,6 +85,12 @@ func TestDesignUsingDefaultFunctions(t *testing.T) {
 		Set("Uint32").
 		Set("Uint64").
 		Set("Bool").
+		Set("IntArray").
+		Set("ModelBArray").
+		Set("StringMap").
+		Set("IntPointerArray").
+		Set("ModelBPointerArray").
+		Set("StringPointerMap").
 		Set("StringPointer").
 		Set("IntPointer").
 		Set("Int8Pointer").
@@ -85,6 +103,12 @@ func TestDesignUsingDefaultFunctions(t *testing.T) {
 		Set("Uint32Pointer").
 		Set("Uint64Pointer").
 		Set("BoolPointer").
+		Set("IntArrayPointer").
+		Set("ModelCArrayPointer").
+		Set("StringMapPointer").
+		Set("IntPointerArrayPointer").
+		Set("ModelCPointerArrayPointer").
+		Set("StringPointerMapPointer").
 		Design(&ModelA{}),
 		"Should be designed")
 	assert.NotNil(t, factories["admin"], "Factory design should be added")
