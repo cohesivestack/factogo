@@ -1,10 +1,18 @@
 package factogo
 
 import (
-	"errors"
 	"fmt"
 	"reflect"
 )
+
+/*
+Creates a new product struct from an anonymous factory design
+*/
+func Produce(product interface{}) error {
+	fi := &factoryInstance{object: product, isAnonymous: true}
+	fi.values = make(map[string]*factoryValue)
+	return fi.Produce(product)
+}
 
 /*
 Produce invokes a designed Factory to create a new product Struct.
@@ -18,29 +26,36 @@ Example:
 	Factory("staff").Produce(target)
 */
 func (fi *factoryInstance) Produce(product interface{}) error {
-	if _, ok := factories[fi.name]; !ok {
-		return errors.New(
-			fmt.Sprintf("'%s' designed Factory doesn't exist", fi.name))
-	}
-
 	modifiedFactory := fi
-	originalFactory := factories[fi.name]
 
-	if !modifiedFactory.notPersist && modifiedFactory.persistFunction == nil {
-		modifiedFactory.persistFunction = originalFactory.persistFunction
-		modifiedFactory.notPersist = originalFactory.notPersist
-	}
+	if fi.isAnonymous {
+		err := fi.Design(product)
+		if err != nil {
+			return err
+		}
+	} else {
+		if _, ok := factories[fi.name]; !ok {
+			return fmt.Errorf("'%s' designed Factory doesn't exist", fi.name)
+		}
 
-	if !modifiedFactory.notPersist && modifiedFactory.afterPersistFunction == nil {
-		modifiedFactory.afterPersistFunction = originalFactory.afterPersistFunction
-	}
+		originalFactory := factories[fi.name]
 
-	for _, originalValue := range originalFactory.values {
-		if _, ok := modifiedFactory.values[originalValue.name]; !ok {
-			modifiedFactory.values[originalValue.name] = &factoryValue{
-				name:   originalValue.name,
-				value:  originalValue.value,
-				params: originalValue.params,
+		if !modifiedFactory.notPersist && modifiedFactory.persistFunction == nil {
+			modifiedFactory.persistFunction = originalFactory.persistFunction
+			modifiedFactory.notPersist = originalFactory.notPersist
+		}
+
+		if !modifiedFactory.notPersist && modifiedFactory.afterPersistFunction == nil {
+			modifiedFactory.afterPersistFunction = originalFactory.afterPersistFunction
+		}
+
+		for _, originalValue := range originalFactory.values {
+			if _, ok := modifiedFactory.values[originalValue.name]; !ok {
+				modifiedFactory.values[originalValue.name] = &factoryValue{
+					name:   originalValue.name,
+					value:  originalValue.value,
+					params: originalValue.params,
+				}
 			}
 		}
 	}

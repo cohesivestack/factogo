@@ -34,3 +34,10 @@ func TestProduceANotDesignedFactory(t *testing.T) {
 	assert.Errorf(t, Factory("modelA").Produce(modelA),
 		"'modelA' designed Factory doesn't exist", "Should not be produced")
 }
+
+func TestProduceAnonymous(t *testing.T) {
+	Clear()
+	modelA = &ModelA{}
+
+	assert.NoError(t, Produce(modelA), "Should be produced")
+}

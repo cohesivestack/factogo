@@ -47,6 +47,11 @@ type ModelC struct {
 	String string
 }
 
+type ModelD struct {
+	String string
+	Int    int
+}
+
 func TestDesign(t *testing.T) {
 	Clear()
 	assert.NoError(t, Factory("admin").Design(&ModelA{}), "Should be designed")

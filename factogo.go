@@ -23,6 +23,8 @@ type factoryInstance struct {
 	notPersist           bool
 	persistFunction      func(product interface{})
 	afterPersistFunction func(product interface{})
+	isAuto               bool
+	isAnonymous          bool
 	name                 string
 	object               interface{}
 	values               map[string]*factoryValue
@@ -51,19 +53,9 @@ Factory get or creates a Factory Instance depending on whether it was already
 designed or not.
 */
 func Factory(name string) *factoryInstance {
-	factory := &factoryInstance{name: name}
+	factory := &factoryInstance{name: name, isAuto: true}
 	factory.values = make(map[string]*factoryValue)
 	return factory
-}
-
-/*
-Factory get or creates a Factory Instance depending on whether it was already
-designed or not.
-*/
-func Produce(product interface{}) {
-	fi := &factoryInstance{object: product}
-	fi.values = make(map[string]*factoryValue)
-	_ = fi.Produce(product)
 }
 
 /*

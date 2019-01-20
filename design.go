@@ -17,25 +17,46 @@ Example:
 	Factory("staff").Produce() // Now is possible to produce from the designed Factory
 */
 func (fi *factoryInstance) Design(object interface{}) error {
-	if _, ok := factories[fi.name]; ok {
-		return errors.New(
-			fmt.Sprintf("A designed Factory named '%s' already exists", fi.name))
+	if !fi.isAnonymous {
+		if _, ok := factories[fi.name]; ok {
+			return errors.New(
+				fmt.Sprintf("A designed Factory named '%s' already exists", fi.name))
+		}
 	}
 
 	err := fi.checkValues(object)
 	if err != nil {
 		return err
 	}
-	factories[fi.name] = fi
+
+	if !fi.isAnonymous {
+		factories[fi.name] = fi
+	}
 	return nil
+}
+
+func factoryAnonymous() *factoryInstance {
+	fi := &factoryInstance{isAnonymous: true, isAuto: true}
+	fi.values = make(map[string]*factoryValue)
+
+	return fi
 }
 
 func (fi *factoryInstance) checkValues(object interface{}) error {
 
 	objectValue := reflect.ValueOf(object)
 	objectType := reflect.Indirect(objectValue).Type()
-	for _, _factoryValue := range fi.values {
 
+	if fi.isAuto {
+		for i := 0; i < objectType.NumField(); i++ {
+			nameOfField := objectType.Field(i).Name
+
+			if _, ok := fi.values[nameOfField]; !ok {
+				fi.values[nameOfField] = &factoryValue{name: nameOfField}
+			}
+		}
+	}
+	for _, _factoryValue := range fi.values {
 		fieldName := _factoryValue.name
 
 		field, ok := objectType.FieldByName(fieldName)
