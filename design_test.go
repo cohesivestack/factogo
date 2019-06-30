@@ -2,6 +2,7 @@ package factogo
 
 import (
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -21,6 +22,7 @@ type ModelA struct {
 	Float32                   float32
 	Float64                   float64
 	Bool                      bool
+	Time                      time.Time
 	ModelB                    ModelB
 	IntArray                  []int
 	ModelBArray               []ModelB
@@ -42,6 +44,7 @@ type ModelA struct {
 	Float32Pointer            *float32
 	Float64Pointer            *float64
 	BoolPointer               *bool
+	TimePointer               *time.Time
 	ModelC                    *ModelC
 	IntArrayPointer           *[]int
 	ModelCArrayPointer        *[]ModelC
@@ -85,6 +88,7 @@ func TestDesignUsingDefaultFunctions(t *testing.T) {
 		Set("Uint32").
 		Set("Uint64").
 		Set("Bool").
+		Set("Time").
 		Set("IntArray").
 		Set("ModelBArray").
 		Set("StringMap").
@@ -103,6 +107,7 @@ func TestDesignUsingDefaultFunctions(t *testing.T) {
 		Set("Uint32Pointer").
 		Set("Uint64Pointer").
 		Set("BoolPointer").
+		Set("TimePointer").
 		Set("IntArrayPointer").
 		Set("ModelCArrayPointer").
 		Set("StringMapPointer").

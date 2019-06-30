@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"time"
 )
 
 /*
@@ -156,6 +157,9 @@ func getDefaultFunctionFor(name string, _type reflect.Type) (interface{}, error)
 		case "*bool":
 			return ProduceBoolPointer, nil
 		default:
+			if _type.Elem().AssignableTo(reflect.TypeOf(time.Time{})) {
+				return ProduceTimePointer, nil
+			}
 			return func(object interface{}) {
 				valuePointer := reflect.New(_type.Elem()).Interface()
 				Factory(name).Produce(valuePointer)
@@ -164,6 +168,9 @@ func getDefaultFunctionFor(name string, _type reflect.Type) (interface{}, error)
 			}, nil
 		}
 	default:
+		if _type.AssignableTo(reflect.TypeOf(time.Time{})) {
+			return ProduceTime, nil
+		}
 		return func(object interface{}) {
 			valuePointer := reflect.New(_type).Interface()
 			Factory(name).Produce(valuePointer)

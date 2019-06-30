@@ -33,6 +33,7 @@ func TestProduceDefault(t *testing.T) {
 		Set("Float32").
 		Set("Float64").
 		Set("Bool").
+		Set("Time").
 		Set("ModelB").
 		Set("IntArray").
 		Set("ModelBArray").
@@ -78,6 +79,7 @@ func TestProduceDefault(t *testing.T) {
 	assert.NotEmpty(t, modelA.Float32, "Should be not empty")
 	assert.NotEmpty(t, modelA.Float64, "Should be not empty")
 	assert.NotNil(t, modelA.ModelB, "Should be not empty")
+	assert.NotZero(t, modelA.Time, "Should be not empty")
 
 	assert.Len(t, modelA.IntArray, 0, "Should be empty")
 	assert.Len(t, modelA.ModelBArray, 0, "Should be empty")
@@ -102,6 +104,7 @@ func TestProduceDefault(t *testing.T) {
 	assert.NotEmpty(t, *modelA.Float64Pointer, "Should be not empty")
 
 	assert.NotNil(t, modelA.BoolPointer, "Should be not empty")
+	assert.NotZero(t, *modelA.TimePointer, "Should be not empty")
 
 	assert.NotNil(t, modelA.IntArrayPointer, "Should be not empty")
 	assert.NotNil(t, modelA.ModelCArrayPointer, "Should be not empty")

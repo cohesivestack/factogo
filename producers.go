@@ -121,6 +121,13 @@ func ProduceBool() bool {
 }
 
 /*
+ProduceTime produces a time.Time using time.Now() function.
+*/
+func ProduceTime() time.Time {
+	return time.Now()
+}
+
+/*
 ProduceStringPointer produces a pointer to a ramdom string.
 */
 func ProduceStringPointer() *string {
@@ -229,5 +236,13 @@ ProduceBoolPointer produces a pointer to a ramdom bool.
 */
 func ProduceBoolPointer() *bool {
 	val := ProduceBool()
+	return &val
+}
+
+/*
+ProduceTime produces a pointer to a time.Time using time.Now() function.
+*/
+func ProduceTimePointer() *time.Time {
+	val := ProduceTime()
 	return &val
 }
